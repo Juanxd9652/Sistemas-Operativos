@@ -142,7 +142,7 @@ void FCFS(int A, int B, int NProcesos){
                     TiempoPromedioDeEspera/=NProcesos;
                 }
             }
-            cout<<"\nEl tiempo promedio de espera es de: "<<TiempoPromedioDeEspera<<" ms.\n"<<endl;
+            Titulo();
             cout<<"---------DIAGRAMA DE GANTT PARA FCFS---------\n\n";
             cout<<"       0 ms."<<endl;
             for(int a=0,b=0;a<NProcesos;a++){
@@ -150,7 +150,7 @@ void FCFS(int A, int B, int NProcesos){
                 b+=TiempoCPU[a];
                 cout<<"       "<<b<<" ms."<<endl;
             }
-
+            cout<<"\nEl tiempo promedio de espera es de: "<<TiempoPromedioDeEspera<<" ms.\n"<<endl;
             system("pause");
             system("cls");
 
