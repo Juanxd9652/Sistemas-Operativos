@@ -16,10 +16,10 @@ int validarNumeros(char num[]); //Para validar que los números no contengan letr
 void Generacion1(); //Genera los números aleatorios con un rango definido.
 void Generacion2(); //Genera los números aleatorios con un rango definido por el sistema.
 
-void FCFS(int A, int B, int NProcesos);
-void SJF(char SJF1[][3], int NProcesos);
-void Prioridad(char Prioridad1[][3], int NProcesos);
-void RoundRobin(char RoundRobin1[][3], int NProcesos, int Quantum);
+void FCFS(int Paquete[][3], int NProcesos);
+void SJF(int Paquete[][3], int NProcesos);
+void Prioridad(int Paquete[][3], int NProcesos);
+void RoundRobin(int Paquete[][3], int NProcesos, int Quantum);
 
 int main(){
     setlocale(LC_ALL, "Spanish"); //Idioma español.
@@ -112,7 +112,7 @@ int validarNumeros(char num[]){
     return 0;
 }
 
-void FCFS(int A, int B, int NProcesos){
+void FCFS(int Paquete[][3], int NProcesos){
     int TiempoCPU[100];
     int TiempoDeEspera[100];
     TiempoDeEspera[0]=0;
@@ -124,8 +124,7 @@ void FCFS(int A, int B, int NProcesos){
     system("cls");
             for (int b=0;b<NProcesos;b++){
                 for (int a=0;a<1;a++){
-                    aux=B-A+1;
-                    TCPU=A + rand()%aux;
+                    TCPU=Paquete[b][0];
                     if (b==0){
                         TiempoDeEspera[b]=0;
                     }else{
@@ -156,40 +155,44 @@ void FCFS(int A, int B, int NProcesos){
 
 };
 
-void SJF(char SJF1[][3], int NProcesos){
+void SJF(int SJF1[][3], int NProcesos){
     cout<<"Funciona FCFS";
 };
 
-void Prioridad(char Prioridad1[][3], int NProcesos){
+void Prioridad(int Prioridad1[][3], int NProcesos){
     cout<<"Funciona FCFS";
 };
 
-void RoundRobin(char RoundRobin1[][3], int NProcesos, int Quantum){
+void RoundRobin(int RoundRobin1[][3], int NProcesos, int Quantum){
     cout<<"Funciona RoundRobin";
 };
 
 void Generacion1(){
+
     //Variables necesarias
 
     char RangoA[2];
     char RangoB[2];
-    int aux;
+    int PaqueteDatos[20][3];
 
         //Variables para # Procesos
 
         int P_A;
         int P_B;
+        int auxP;
         int NProcesos;
 
         //Variables para T CPU
 
         int T_A;
         int T_B;
+        int auxT;
 
         //Variables para Prioridad
 
         int Pr_A;
         int Pr_B;
+        int auxPr;
 
         //Variables para Quantum
 
@@ -209,8 +212,8 @@ void Generacion1(){
         P_B=atoi(RangoB);
     }while(P_A>P_B || P_A<=0 || P_B>20 || validarNumeros(RangoA) || validarNumeros(RangoB));
 
-    aux=P_B-P_A +1;
-    NProcesos=P_A + rand()%aux;
+    auxP = P_B - P_A + 1;
+    NProcesos=P_A + rand()%auxP;
     cout<<"\nEl número aleatorio de procesos generado es: "<<NProcesos<<"\n\n";
     system("pause");
 
@@ -244,7 +247,52 @@ void Generacion1(){
     cout<<"\nEl rango de generación aleatoria de prioridades es "<<Pr_A<<" - "<<Pr_B<<".\n\n";
     system("pause");
 
-    FCFS(T_A,T_B,NProcesos);
+    do{
+        system("cls");
+        Titulo();
+        cout<<"\nInserte los rangos de generación para el Quantum.\nPRECAUCIÓN: No sobrecargue el programa, podrá asignar un Quantum máximo de .\n\n";
+        cout<<"Rango inferior: ";
+        cin>>RangoA;
+        P_A=atoi(RangoA);
+        cout<<"\nRango superior: ";
+        cin>>RangoB;
+        P_B=atoi(RangoB);
+    }while(P_A>P_B || P_A<=0 || P_B>20 || validarNumeros(RangoA) || validarNumeros(RangoB));
+
+    auxP = P_B - P_A + 1;
+    NProcesos=P_A + rand()%auxP;
+    cout<<"\nEl número aleatorio de procesos generado es: "<<NProcesos<<"\n\n";
+    system("pause");
+
+    // Vamos a llenar la matriz a trabajar
+
+        // Primero, el identificador
+
+        for (int a=1;a<=NProcesos;a++){
+            PaqueteDatos[a-1][0]=a;
+            cout<<PaqueteDatos[a-1][0]<<endl;
+        }
+        cout<<endl;
+        // Segundo, generamos los T CPU
+
+        auxT = T_B - T_A + 1;
+        for (int a=1;a<=NProcesos;a++){
+            PaqueteDatos[a-1][1]=T_A + rand()%auxT;
+            cout<<PaqueteDatos[a-1][1]<<endl;
+        }
+        cout<<endl;
+        // Tercerp, generamos las Prioridades
+
+        auxPr = Pr_B - Pr_A + 1;
+        for (int a=1;a<=NProcesos;a++){
+            PaqueteDatos[a-1][2]=Pr_A + rand()%auxPr;
+            cout<<PaqueteDatos[a-1][2]<<endl;
+        }
+    system("pause");
+    FCFS(PaqueteDatos,NProcesos);
+    SJF(PaqueteDatos,NProcesos);
+    Prioridad(PaqueteDatos,NProcesos);
+    RoundRobin(PaqueteDatos,NProcesos,Quantum);
 };
 
 void Generacion2(){
