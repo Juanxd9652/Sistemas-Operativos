@@ -232,7 +232,7 @@ void Generacion1(){
 };
 
 void Generacion2(){
-
+    cout<<"Nuevo cambio al código";
 };
 
 
