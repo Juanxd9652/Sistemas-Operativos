@@ -170,65 +170,81 @@ void RoundRobin(char RoundRobin1[][3], int NProcesos, int Quantum){
 
 void Generacion1(){
     //Variables necesarias
+
     char RangoA[2];
-    int RangoA1;
     char RangoB[2];
-    int RangoB1;
     int aux;
-    int aux2;
-    int NProcesos;
-    int Quantum;
-    char PaqueteDatos[2][2];
+
+        //Variables para # Procesos
+
+        int P_A;
+        int P_B;
+        int NProcesos;
+
+        //Variables para T CPU
+
+        int T_A;
+        int T_B;
+
+        //Variables para Prioridad
+
+        int Pr_A;
+        int Pr_B;
+
+        //Variables para Quantum
+
+        int Q_A;
+        int Q_B;
+        int Quantum;
 
     do{
+        system("cls");
         Titulo();
         cout<<"\nInserte los rangos para la cantidad de procesos.\nPRECAUCIÓN: No sobrecargue el programa, podrá generar hasta un máximo de 20 procesos.\n\n";
         cout<<"Rango inferior: ";
         cin>>RangoA;
-        RangoA1=atoi(RangoA);
+        P_A=atoi(RangoA);
         cout<<"\nRango superior: ";
         cin>>RangoB;
-        RangoB1=atoi(RangoB);
-        system("cls");
-    }while(RangoA1>RangoB1 || RangoA1<=0 || RangoB1>20);
+        P_B=atoi(RangoB);
+    }while(P_A>P_B || P_A<=0 || P_B>20 || validarNumeros(RangoA) || validarNumeros(RangoB));
 
-    aux=RangoB1-RangoA1 +1;
-    NProcesos=RangoA1 + rand()%aux;
-    cout<<NProcesos;
+    aux=P_B-P_A +1;
+    NProcesos=P_A + rand()%aux;
+    cout<<"\nEl número aleatorio de procesos generado es: "<<NProcesos<<"\n\n";
+    system("pause");
 
     do{
+        system("cls");
         Titulo();
         cout<<"\nInserte los rangos para los tiempos de CPU de un proceso.\nPRECAUCIÓN: No sobrecargue el programa, podrá asignar hasta un máximo de 20 milisegundos por proceso.\n\n";
         cout<<"Rango inferior: ";
         cin>>RangoA;
-        RangoA1=atoi(RangoA);
+        T_A=atoi(RangoA);
         cout<<"\nRango superior: ";
         cin>>RangoB;
-        RangoB1=atoi(RangoB);
-        system("cls");
-    }while(RangoA1>RangoB1 || RangoA1<=0 || RangoB1>20);
+        T_B=atoi(RangoB);
+    }while(T_A>T_B || T_A<=0 || T_B>20 || validarNumeros(RangoA) || validarNumeros(RangoB));
 
-    aux=RangoB1-RangoA1 +1;
-    aux2=RangoA1 + rand()%aux;
-    cout<<aux2;
-
+    cout<<"\nEl rango de generación aleatoria de tiempos de CPU es "<<T_A<<" ms - "<<T_B<<" ms.\n\n";
+    system("pause");
 
     do{
+        system("cls");
         Titulo();
         cout<<"\nInserte los rangos para la prioridad de un proceso.\nPRECAUCIÓN: No sobrecargue el programa, podrá generar hasta un máximo de 10 prioridades.\n\n";
         cout<<"Rango inferior: ";
         cin>>RangoA;
-        RangoA1=atoi(RangoA);
+        Pr_A=atoi(RangoA);
         cout<<"\nRango superior: ";
         cin>>RangoB;
-        RangoB1=atoi(RangoB);
-        system("cls");
-    }while(RangoA1>RangoB1 || RangoA1<=0 || RangoB1>10);
+        Pr_B=atoi(RangoB);
+    }while(Pr_A>Pr_B || Pr_A<=0 || Pr_B>10 || validarNumeros(RangoA) || validarNumeros(RangoB));
 
-    aux=RangoB1-RangoA1 +1;
-    aux2=RangoA1 + rand()%aux;
-    //cout<<NProcesos;
-    FCFS(RangoA1,RangoB1,NProcesos);
+    cout<<"\nEl rango de generación aleatoria de prioridades es "<<Pr_A<<" - "<<Pr_B<<".\n\n";
+    system("pause");
+
+    FCFS(T_A,T_B,NProcesos);
 };
 
 void Generacion2(){
