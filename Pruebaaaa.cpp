@@ -37,7 +37,7 @@ int main(){
 
         do{
             Titulo();
-            cout<<"Bienvenido señor usuario, por favor identifíquese con un nombre: ";
+            cout<<"* Bienvenido señor usuario, por favor identifíquese con un nombre: ";
             cin>>nombre;
             nombre2=nombre;
             system("cls");
@@ -142,16 +142,17 @@ void FCFS(int Paquete[][3], int NProcesos){
                 }
             }
             Titulo();
-            cout<<"---------DIAGRAMA DE GANTT PARA FCFS---------\n\n";
-            cout<<"       0 ms."<<endl;
+            cout<<"  -----------------------------\n";
+            cout<<"  |DIAGRAMA DE GANTT PARA FCFS|\n";
+            cout<<"  -----------------------------\n\n";
+            cout<<"              0 ms."<<endl;
             for(int a=0,b=0;a<NProcesos;a++){
-                cout<<"       ^\n       |\n       P"<<a+1<<"\n       |\n       v"<<endl;
+                cout<<"              ^\n              |\n              P"<<a+1<<"\n              |\n              v"<<endl;
                 b+=TiempoCPU[a];
-                cout<<"       "<<b<<" ms."<<endl;
+                cout<<"              "<<b<<" ms."<<endl;
             }
-            cout<<"\nEl tiempo promedio de espera es de: "<<TiempoPromedioDeEspera<<" ms.\n"<<endl;
-            system("pause");
-            system("cls");
+            cout<<"\n  * El tiempo promedio de espera es de: "<<TiempoPromedioDeEspera<<" ms.\n"<<endl;
+            //system("pause");
 
 };
 
@@ -166,7 +167,7 @@ void SJF(int Paquete[][3], int NProcesos){
 
     int SJF[2][20]; //Matriz para guardar el orden de llegada y el TCPU.
     int aux[2][2]; //Matriz auxiliar para ordenar los TCPU de menor a mayor.
-    system("cls");
+    //system("cls");
 
     // Aquí se insertan los tiempos de CPU
 
@@ -227,14 +228,16 @@ void SJF(int Paquete[][3], int NProcesos){
         }
     }
 
-    cout<<"\nEl tiempo promedio de espera es de: "<<TiempoPromedioDeEspera<<" ms.\n"<<endl;
-    cout<<"---------DIAGRAMA DE GANTT---------\n\n";
-    cout<<"       0 ms."<<endl;
+    cout<<"  ----------------------------\n";
+    cout<<"  |DIAGRAMA DE GANTT PARA SJF|\n";
+    cout<<"  ----------------------------\n\n";
+    cout<<"              0 ms."<<endl;
     for(int a=0,b=0;a<NProcesos;a++){
-        cout<<"       ^\n       |\n       P"<<SJF[1][a]<<"\n       |\n       v"<<endl;
+        cout<<"              ^\n              |\n              P"<<SJF[1][a]<<"\n              |\n              v"<<endl;
         b+=SJF[0][a];
-        cout<<"       "<<b<<" ms."<<endl;
+        cout<<"              "<<b<<" ms."<<endl;
     }
+    cout<<"\n  * El tiempo promedio de espera es de: "<<TiempoPromedioDeEspera<<" ms.\n"<<endl;
     system("pause");
     system("cls");
 };
@@ -295,7 +298,7 @@ void Generacion1(){
 
     auxP = P_B - P_A + 1;
     NProcesos=P_A + rand()%auxP;
-    cout<<"\nEl número aleatorio de procesos generado es: "<<NProcesos<<"\n\n";
+    cout<<"\nEl número de procesos generado de manera aleatoria es ("<<NProcesos<<").\n\n";
     system("pause");
 
     do{
