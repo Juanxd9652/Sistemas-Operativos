@@ -44,7 +44,7 @@ int main(){
             system("cls");
         }while(validarNombres(nombre));
 
-        while(opc2<1 || opc2>2 || validarNumeros(opc1)){
+        while(opc2<1 || opc2>3 || validarNumeros(opc1)){
             Titulo();
             Bienvenida(nombre2);
             cin>>opc1;
@@ -71,11 +71,14 @@ int main(){
                 Generacion2();
             }
 
-        }else{
+        }
+        else if (opc2==2){
             cout<<"Aquí debo poner texto haciendo referencia a la inserción de datos de manera manual.\n";
             Generacion3();
         }
-        cout<<"\nValidó que no ingresaran letras y que el rango de opciones sea el correcto.\n";
+        else{
+            return 0;
+        }
 
         system("pause");
         system("cls");
@@ -95,7 +98,7 @@ void Bienvenida(string nom){
     cout<<"\nMuchas gracias por utilizar nuestro software de Algoritmos, tenga en cuenta que pondremos a su disposición (4) algoritmos de planificación que son FCFS, SJF, Prioridad\n";
     cout<<"y Round Robin. A continuación te daremos a escoger (2) opciones, la primera consiste en generar los datos de manera aleatoria para los (4) algoritmos, definiendo los\n";
     cout<<"rangos de aleatoriedad para el # de procesos, tiempo de CPU, Prioridad, Quantum, y la segunda opción consiste en insertar la cantidad de # de procesos, tiempo de CPU,\n";
-    cout<<"Prioridad, Quantum de manera manual.\n\n1. Generación aleatoria.\n2. Inserción manual.\n\nPor favor escoja una opción: ";
+    cout<<"Prioridad, Quantum de manera manual.\n\n1. Generación aleatoria.\n2. Inserción manual.\n3. Salir.\n\nPor favor escoja una opción: ";
 }
 
 int validarNombres(char num[]){
@@ -484,32 +487,34 @@ void Generacion3(){
             cout<<PaqueteDatos[a-1][0]<<endl;
         }
 
-    for (int a=0;a<NProcesos;a++){
+    for (int a=1;a<=NProcesos;a++){
         do{
         system("cls");
         Titulo();
         cout<<"\nInserte los tiempos de CPU de cada proceso.\nPRECAUCIÓN: No sobrecargue el programa, podrá asignar hasta un máximo de 20 milisegundos por proceso.\n\n";
-        cout<<"Tiempo de CPU del proceso "<<a+1<<": ";
+        cout<<"Tiempo de CPU del proceso ("<<a<<"): ";
         cin>>Ingreso;
         T_A=atoi(Ingreso);
         }while(T_A>20 || T_A<=0 || validarNumeros(Ingreso));
         PaqueteDatos[a-1][1]=T_A;
     }
 
+    cout<<endl;
     system("pause");
 
-    for (int a=0;a<NProcesos;a++){
+    for (int a=1;a<=NProcesos;a++){
         do{
         system("cls");
         Titulo();
         cout<<"\nInserte las prioridades de cada proceso.\nPRECAUCIÓN: No sobrecargue el programa, podrá generar hasta un máximo de 10 prioridades.\n\n";
-        cout<<"Prioridad del proceso ("<<a+1<<"): ";
+        cout<<"Prioridad del proceso ("<<a<<"): ";
         cin>>Ingreso;
         Pr_A=atoi(Ingreso);
         }while(Pr_A>10 || Pr_A<=0 || validarNumeros(Ingreso));
         PaqueteDatos[a-1][2]=Pr_A;
     }
 
+    cout<<endl;
     system("pause");
 
     do{
