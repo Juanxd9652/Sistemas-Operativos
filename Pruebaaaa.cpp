@@ -13,9 +13,9 @@ void Titulo(); //Para llamar al título.
 void Bienvenida(string nom); //Para llamar el enunciado de la bienvenida.
 int validarNombres(char num[]); //Para validar que los nombres no contengan números.
 int validarNumeros(char num[]); //Para validar que los números no contengan letras.
-void Generacion1(); //Genera los números aleatorios con un rango definido.
-void Generacion2(); //Genera los números aleatorios con un rango definido por el sistema.
-void Generacion3(); //Permite insertar al usuario los datos manualmente.
+void Generacion1(string nom); //Genera los números aleatorios con un rango definido.
+void Generacion2(string nom); //Genera los números aleatorios con un rango definido por el sistema.
+void Generacion3(string nom); //Permite insertar al usuario los datos manualmente.
 
 void FCFS(int Paquete[][3], int NProcesos);
 void SJF(int Paquete[][3], int NProcesos);
@@ -65,16 +65,16 @@ int main(){
             }while(opc2<1 || opc2>2 || validarNumeros(opc1));
 
             if(opc2==1){
-                Generacion1();
+                Generacion1(nombre2);
             }
             else{
-                Generacion2();
+                Generacion2(nombre2);
             }
 
         }
         else if (opc2==2){
             cout<<"Aquí debo poner texto haciendo referencia a la inserción de datos de manera manual.\n";
-            Generacion3();
+            Generacion3(nombre2);
         }
         else{
             return 0;
@@ -94,7 +94,7 @@ void Titulo(){
 }
 
 void Bienvenida(string nom){
-    cout<<"Estimado "<<nom<<".\n";
+    cout<<"Estimad@ "<<nom<<".\n";
     cout<<"\nMuchas gracias por utilizar nuestro software de Algoritmos, tenga en cuenta que pondremos a su disposición (4) algoritmos de planificación que son FCFS, SJF, Prioridad\n";
     cout<<"y Round Robin. A continuación te daremos a escoger (2) opciones, la primera consiste en generar los datos de manera aleatoria para los (4) algoritmos, definiendo los\n";
     cout<<"rangos de aleatoriedad para el # de procesos, tiempo de CPU, Prioridad, Quantum, y la segunda opción consiste en insertar la cantidad de # de procesos, tiempo de CPU,\n";
@@ -314,7 +314,7 @@ void RoundRobin(int Paquete[][3], int NProcesos, int Quantum){
     cout<<"Funciona RoundRobin";
 };
 
-void Generacion1(){
+void Generacion1(string nom){
 
     //Variables necesarias
 
@@ -444,7 +444,82 @@ void Generacion1(){
     RoundRobin(PaqueteDatos,NProcesos,Quantum);
 };
 
-void Generacion3(){
+void Generacion2(string nom){
+
+    //Variables necesarias
+
+    char RangoA[2];
+    char RangoB[2];
+    int PaqueteDatos[20][3];
+
+        //Variables para # Procesos
+
+        int P_A=1;
+        int P_B=20;
+        int auxP;
+        int NProcesos;
+
+        //Variables para T CPU
+
+        int T_A=1;
+        int T_B=20;
+        int auxT;
+
+        //Variables para Prioridad
+
+        int Pr_A=1;
+        int Pr_B=10;
+        int auxPr;
+
+        //Variables para Quantum
+
+        int Q_A=1;
+        int Q_B=10;
+        int auxQ;
+        int Quantum;
+    Titulo();
+    cout<<"\nSeñor@ "<<nom<<", los rangos predeterminados del programa son:\n\n";
+    cout<<"PROCESOS:    1 a 20.\n";
+    cout<<"TIEMPO CPU:  1 a 20.\n";
+    cout<<"PRIORIDAD:   1 a 10.\n";
+    cout<<"QUANTUM:     1 a 10.\n\n";
+
+    auxP = P_B - P_A + 1;
+    NProcesos=P_A + rand()%auxP;
+
+    auxQ = Q_B - Q_A + 1;
+    Quantum=Q_A + rand()%auxQ;
+
+    // Vamos a llenar la matriz a trabajar
+
+        // Primero, el identificador
+
+        for (int a=1;a<=NProcesos;a++){
+            PaqueteDatos[a-1][0]=a;
+        }
+
+        // Segundo, generamos los T CPU
+
+        auxT = T_B - T_A + 1;
+        for (int a=1;a<=NProcesos;a++){
+            PaqueteDatos[a-1][1]=T_A + rand()%auxT;
+        }
+
+        // Tercerp, generamos las Prioridades
+
+        auxPr = Pr_B - Pr_A + 1;
+        for (int a=1;a<=NProcesos;a++){
+            PaqueteDatos[a-1][2]=Pr_A + rand()%auxPr;
+        }
+    system("pause");
+
+    FCFS(PaqueteDatos,NProcesos);
+    SJF(PaqueteDatos,NProcesos);
+    Prioridad(PaqueteDatos,NProcesos);
+    RoundRobin(PaqueteDatos,NProcesos,Quantum);
+};
+
+void Generacion3(string nom){
 
     //Variables necesarias
 
@@ -536,85 +611,6 @@ void Generacion3(){
     RoundRobin(PaqueteDatos,NProcesos,Quantum);
 };
 
-void Generacion2(){
-    /*
-    int TiempoCPU[100];
-    int TiempoDeEspera[100];
-    TiempoDeEspera[0]=0;
-    char NProcesos1[3];
-    int NProcesos;
-    char TCPU1[6];
-    int TCPU=0;
-    char Prioridad1[6];
-    int Prio=0;
-
-    int Prioridad[3][100]; //Matriz para guardar el orden de llegada, la prioridad y el TCPU.
-    int aux2[3][2]; //Matriz auxiliar para ordenar los procesos según la prioridad.
-    system("cls");
-
-    for (int a=0;a<1;){
-    cout<<"\nIndique la cantidad de procesos a ingresar (Máximo 100 procesos) para Prioridad: ";
-        cin>>NProcesos1;
-        if(validar(NProcesos1)){
-            system("cls");
-            cout<<"Error: Solo se permiten números.\n"<<endl;
-        }
-        else{
-            NProcesos=atoi(NProcesos1); //Para convertir el char en int.
-            if (NProcesos<1 || NProcesos>100){
-                system("cls");
-                cout<<"Error: Número fuera del rango.\n"<<endl;
-            }else{
-            a++;
-            }
-        }
-    }
-
-    // Aquí se insertan las prioridades de cada proceso.
-
-    cout<<endl;
-    for (int b=0;b<NProcesos;b++){
-        for (int a=0;a<1;){
-            cout<<"\nIndique la prioridad del proceso P"<<b+1<<": ";
-            cin>>Prioridad1;
-            if(validar(Prioridad1)){
-                cout<<"\nError: Solo se permiten números.\n"<<endl;
-            }
-            else{
-                Prio=atoi(Prioridad1); //Para convertir el char en int.
-                if (Prio<=0){
-                    cout<<"\nError: Prioridad no válida.\n"<<endl;
-                }else{
-                a++;
-                }
-            }
-            Prioridad[0][b]=Prio;
-            Prioridad[1][b]=b+1;
-        }
-    }
-
-    // Aquí se insertan los tiempos de CPU
-
-    for (int b=0;b<NProcesos;b++){
-        for (int a=0;a<1;){
-            cout<<"\nIndique el tiempo de CPU del proceso P"<<b+1<<": ";
-            cin>>TCPU1;
-            if(validar(TCPU1)){
-                cout<<"\nError: Solo se permiten números.\n"<<endl;
-            }
-            else{
-                TCPU=atoi(TCPU1); //Para convertir el char en int.
-                if (TCPU<=0){
-                    cout<<"\nError: Tiempo de CPU no válido.\n"<<endl;
-                }else{
-                    a++;
-                }
-            }
-            Prioridad[2][b]=TCPU;
-        }
-    }
-    */
-};
 
 
 
